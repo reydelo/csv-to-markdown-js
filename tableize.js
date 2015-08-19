@@ -5,6 +5,16 @@ var companies = data.mvp.companies.split("\n");
 printData(people);
 printData(companies);
 
+//*** stretch ***//
+
+var fs = require('fs');
+var path = process.argv[2];
+var group = fs.readFileSync(path, 'utf8').split('\n');
+group.splice(-1,1);
+printData(group);
+
+//*** end stretch ***//
+
 function printData(group) {
   // get max column width
   var columnWidths = longestWord(group)
