@@ -7,11 +7,11 @@ printData(companies);
 
 //*** stretch ***//
 
-var fs = require('fs');
-var path = process.argv[2];
-var group = fs.readFileSync(path, 'utf8').split('\n');
-group.splice(-1,1);
-printData(group);
+// var fs = require('fs');
+// var path = process.argv[2];
+// var group = fs.readFileSync(path, 'utf8').split('\n');
+// group.splice(-1,1);
+// printData(group);
 
 //*** end stretch ***//
 
@@ -20,7 +20,12 @@ function printData(group) {
   var columnWidths = longestWord(group)
   // get rows
   for (var i = 0; i < group.length; i++) {
-    var row = group[i].split(',');
+    var row = group[i].split(',')
+
+    //** stretch logic **//
+    var row = group[i].match(/("[^']+"|[^,]+)/g);
+    //** end stretch **//
+
     // add padding to data in each row
     for (var j = 0; j < columnWidths.length; j++) {
       row[j] = addPadding(row[j], columnWidths[j], " ");
@@ -58,6 +63,11 @@ function longestWord(group) {
   // find length of longest word per column
   for (var i = 0; i < group.length; i++) {
     var row = group[i].split(",");
+
+    //*** stretch logic ***//
+    var row = group[i].match(/("[^']+"|[^,]+)/g)
+    //*** end stretch ***//
+    
     for (var j = 0; j < columns; j++) {
       if (row[j].length > counter[j]) {
         counter[j] = row[j].length;
